@@ -31,6 +31,15 @@ but why is the controller being used to call this function?" Notice that show_fr
 in this case the main program class. It is not defined in the other classes. For the other classes to be able to call it, 
 they must call it on an instance of the main class. That instance is named controller in the context of these other classes. 
 """
+"""
+Date : 10/08/2020
+Code modified or rather added to have menus to main window for additional functionality. This can be commented out if 
+not required. But certainly do useful when you want to use 'save', 'save as' and exit commands etc. 
+
+Pravin Padale
+D Sign design
+"""
+
 font_list = {0: 'Arial 11', 1: 'Arial 11 bold', 2: 'Arial 16 bold',
              3: 'Arial 26 bold', 4: 'Verdana 11', 5: 'Verdana 11 bold',
              6: 'Verdana 16 bold', 7: 'Verdana 26 bold', 8: 'Tahoma 11',
@@ -43,11 +52,12 @@ class TemplateApp(tk.Tk):
 
         self.title_font = tkfont.Font(family='Helvetica', size=18, weight="bold", slant="italic")
 
-        # top_title = tk.Frame(self)
-        # top_title.pack(side = "top",fill="both", expand=True)
+        # Main Page title on the main frame.
+        main_title = tk.Label(self, text="App Heading", font=font_list[3])
+        main_title.pack(side="top", fill="x")
 
-        App_title = tk.Label(self, text="App Heading", font=font_list[3])
-        App_title.pack(side="top", fill="x")
+        def donothing():
+            pass
 
         # the container is where we'll stack a bunch of frames
         # on top of each other, then the one we want visible
@@ -56,6 +66,37 @@ class TemplateApp(tk.Tk):
         container.pack(side="top", fill="both", expand=True)
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
+
+        # Definitions of menubar ====================================================
+        menubar = tk.Menu(self)
+        filemenu = tk.Menu(menubar, tearoff=0)
+        filemenu.add_command(label="New", command=donothing)
+        filemenu.add_command(label="Open", command=donothing)
+        filemenu.add_command(label="Save", command=donothing)
+        filemenu.add_command(label="Save as...", command=donothing)
+        filemenu.add_command(label="Close", command=donothing)
+        filemenu.add_separator()
+        filemenu.add_command(label="Exit", command=self.quit)
+        menubar.add_cascade(label="File", menu=filemenu)
+
+        editmenu = tk.Menu(menubar, tearoff=0)
+        editmenu.add_command(label="Undo", command=donothing)
+        editmenu.add_separator()
+        editmenu.add_command(label="Cut", command=donothing)
+        editmenu.add_command(label="Copy", command=donothing)
+        editmenu.add_command(label="Paste", command=donothing)
+        editmenu.add_command(label="Delete", command=donothing)
+        editmenu.add_command(label="Select All", command=donothing)
+        menubar.add_cascade(label="Edit", menu=editmenu)
+
+        helpmenu = tk.Menu(menubar, tearoff=0)
+        helpmenu.add_command(label="Deactivate License", command=donothing)
+        helpmenu.add_command(label="About...", command=donothing)
+        menubar.add_cascade(label="Help", menu=helpmenu)
+
+        self.config(menu=menubar)
+
+        # End of menubar ==============================================================
 
         self.frames = {}
         for F in (StartPage, PageOne, PageTwo):
@@ -118,4 +159,6 @@ class PageTwo(tk.Frame):
 
 if __name__ == "__main__":
     app = TemplateApp()
+    app.title("Your App Name")
+    app.state("zoomed")
     app.mainloop()
