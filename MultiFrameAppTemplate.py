@@ -1,7 +1,9 @@
-import tkinter as tk                # python 3
-from tkinter import font  as tkfont # python 3
-#import Tkinter as tk     # python 2
-#import tkFont as tkfont  # python 2
+import tkinter as tk  # python 3
+from tkinter import font  as tkfont  # python 3
+
+from tkinter import ttk
+# import Tkinter as tk     # python 2
+# import tkFont as tkfont  # python 2
 
 """
 from :
@@ -29,13 +31,23 @@ but why is the controller being used to call this function?" Notice that show_fr
 in this case the main program class. It is not defined in the other classes. For the other classes to be able to call it, 
 they must call it on an instance of the main class. That instance is named controller in the context of these other classes. 
 """
+font_list = {0: 'Arial 11', 1: 'Arial 11 bold', 2: 'Arial 16 bold',
+             3: 'Arial 26 bold', 4: 'Verdana 11', 5: 'Verdana 11 bold',
+             6: 'Verdana 16 bold', 7: 'Verdana 26 bold', 8: 'Tahoma 11',
+             9: 'Tahoma 11 bold', 10: 'Tahoma 16 bold', 11: 'Tahoma 26 bold'}
+
 
 class TemplateApp(tk.Tk):
-
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
 
         self.title_font = tkfont.Font(family='Helvetica', size=18, weight="bold", slant="italic")
+
+        # top_title = tk.Frame(self)
+        # top_title.pack(side = "top",fill="both", expand=True)
+
+        App_title = tk.Label(self, text="App Heading", font=font_list[3])
+        App_title.pack(side="top", fill="x")
 
         # the container is where we'll stack a bunch of frames
         # on top of each other, then the one we want visible
